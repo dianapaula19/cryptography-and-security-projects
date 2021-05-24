@@ -1,0 +1,101 @@
+<FileChoosePopup>:
+    title: "Choose a .txt file"
+    size_hint: .9, .9
+    BoxLayout:
+        orientation: "vertical"
+        FileChooserListView: 
+            id: filechooser
+            filters: ["*.txt"]
+        BoxLayout:
+            size_hint: (1, 0.1)
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            spacing: 20
+            Button:
+                text: "Cancel"
+                on_release: root.dismiss()
+            Button:
+                text: "Load"
+                on_release: root.load(filechooser.selection)
+                disabled: True if filechooser.selection==[] else False
+
+<DirectoryChoosePopup>:
+    title: "Select a directory where to save the generated file"
+    size_hint: .9, .9
+    BoxLayout:
+        orientation: "vertical"
+        FileChooserListView: 
+            id: directorychooser
+            dirselect: True
+            filters: [root.is_dir]
+        BoxLayout:
+            size_hint: (1, 0.1)
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            spacing: 20
+            Button:
+                text: "Cancel"
+                on_release: root.dismiss()
+            Button:
+                text: "Select"
+                on_release: root.load(directorychooser.selection)
+
+<MainLayout>:
+    BoxLayout: 
+        orientation: "vertical"
+        spacing: 30
+        size_hint: .8, .8
+        MDIconButton:
+            icon: "language-python"
+            pos_hint: {"center_x": .5, "center_y": .5}
+        MDLabel:
+            text: "The First Project"
+            font_style: "H3"
+            halign: "center"
+        BoxLayout:
+            orientation: "horizontal"
+            spacing: 10
+            MDRaisedButton:
+                mode: "rectangle"
+                text: "Choose a file"
+                on_press: root.open_choose_file_popup()
+            MDTextField:
+                id: get_file
+                readonly: True
+        MDLabel:
+            text: "Message to be encrypted/decrypted: " + (root.plaintext if root.plaintext != "" else "N/A")
+        MDLabel:
+            text: "Length of the message: " + (str(len(root.plaintext)) if root.plaintext != "" else "N/A")
+        MDTextField:
+            mode: "rectangle"
+            text: root.caesar_key
+            hint_text: "Pick the key for the Caesar Cypher"
+            helper_text: "Pick a number between 0 and 26"
+            helper_text_mode: "on_focus"
+            on_text_validate: root.save_caesar_key(self)
+            disabled: True if len(root.plaintext) == 0 else False
+        MDTextField:
+            mode: "rectangle"
+            text: root.otp_key
+            hint_text: "Pick the key for the OTP Cypher"
+            helper_text: "The key must at least the length of the plaintext"
+            helper_text_mode: "on_focus"
+            on_text_validate: root.save_otp_key(self)
+            disabled: True if len(root.plaintext) == 0 else False
+        BoxLayout:
+            spacing: 20
+            orientation: "horizontal"
+            AnchorLayout:
+                anchor_x: "left"
+                MDRaisedButton:
+                    text: "Encrypt the message"
+                    disabled: True if root.caesar_key == "" or root.otp_key == "" else False
+                    on_press: root.open_choose_directory_popup()
+                    on_press: root.encrypt()
+            AnchorLayout:
+                anchor_x: "right"
+                MDRaisedButton:
+                    text: "Decrypt the message"
+                    disabled: True if root.caesar_key == "" or root.otp_key == "" else False
+                    on_press: root.open_choose_directory_popup()
+                    on_press: root.decrypt()
+
+    

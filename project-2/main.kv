@@ -1,0 +1,46 @@
+<DirectoryChoosePopup>:
+    title: "Select a directory where to save the generated file"
+    size_hint: .9, .9
+    BoxLayout:
+        orientation: "vertical"
+        FileChooserListView: 
+            id: directorychooser
+            dirselect: True
+            filters: [root.is_dir]
+        BoxLayout:
+            size_hint: (1, 0.1)
+            pos_hint: {'center_x': .5, 'center_y': .5}
+            spacing: 20
+            Button:
+                text: "Cancel"
+                on_release: root.dismiss()
+            Button:
+                text: "Select"
+                on_release: root.load(directorychooser.selection)
+                id: ldbtn
+
+<MainLayout>:
+    anchor_x: "center"
+    anchor_y: "center"
+    BoxLayout:
+        size_hint: .5, .5
+        spacing: 10
+        orientation: "vertical"
+        MDIconButton:
+            icon: "language-python"
+            pos_hint: {"center_x": .5, "center_y": .5}
+        MDLabel:
+            text: "The Second Project"
+            halign: "center"
+            font_style: "H3"
+        MDTextField:
+            mode: "rectangle"
+            hint_text: "Pick the size of the file"
+            helper_text: "The size must be a number larger than 0"
+            helper_text_mode: "on_focus"
+            on_text_validate: root.save_file_size(self)
+        MDRaisedButton:
+            text: "Generate the file"
+            on_press: root.open_choose_directory_popup()
+            disabled: True if root.file_size == "" else False
+            pos_hint: {'center_x': .5, 'center_y': .5}
