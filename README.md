@@ -1,48 +1,34 @@
-# Cryptography and Security Projects
+# Cryptography and security projects
 
-## Links for each project's demo video
+Two desktop apps for the *Cryptography and Security* course at the University of Bucharest
+(2021), both written in Python with a Kivy / KivyMD interface.
 
-- first project: [link](https://drive.google.com/file/d/1nNVKSwN2l-msLzL5KThIGhydzQKvubyo/view?usp=sharing)
-- second project: [link](https://drive.google.com/file/d/1rkVWLVPkqjFpSLKR78BMJeizgoRvGO5t/view?usp=sharing)
+## 1. Double encryption
 
-(Please choose a 1080p quality when watching them)
+Encrypts a text file with two classical ciphers in a row, a **Caesar cipher** followed by a
+**one-time pad** (XOR with a key at least as long as the message), and decrypts by applying
+them in reverse order. Input and output are files.
 
-## Steps for running each project
+![Double encryption app](docs/project-1.png)
 
-### Switch to the project's directory you want to run
+## 2. Cryptographically secure random number generator
 
-```(bash)
-cd project-{no_of_the_project}
-```
+Generates a binary file of the chosen size (in MB) with the **Blum Blum Shub** generator:
+x<sub>i+1</sub> = x<sub>i</sub>² mod n, where n = p·q is a product of two primes congruent to
+3 mod 4; each step outputs the parity of x<sub>i+1</sub>, and every 8 bits are packed into one
+byte.
 
-### Create the virtual environment
+![BBS generator app](docs/project-2.png)
 
-```(bash)
-virtualenv env
-```
+Demo videos: [project 1](https://drive.google.com/file/d/1nNVKSwN2l-msLzL5KThIGhydzQKvubyo/view?usp=sharing),
+[project 2](https://drive.google.com/file/d/1rkVWLVPkqjFpSLKR78BMJeizgoRvGO5t/view?usp=sharing).
+The original assignments (in Romanian) are in each project's `README.ro.md`.
 
-### Activate the virtual environment
+## Running
 
-Mac/Linux
-
-```(bash)
-source env/bin/activate
-```
-
-Windows
-
-```(bash)
-env\Scripts\activate
-```
-
-### Install the required packages
-
-```(bash)
+```bash
+cd project-1            # or project-2
+python3 -m venv env && source env/bin/activate
 pip install -r requirements.txt
-```
-
-### Run the application
-
-```(bash)
 python3 main.py
 ```

@@ -1,3 +1,2 @@
-kivy[base]
-kivy_examples
-kivymd
+kivy[base]>=2.1,<3
+kivymd>=1.1,<2  # the apps use the KivyMD 1.x widgets (MDFlatButton)

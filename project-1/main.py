@@ -51,7 +51,7 @@ class MainLayout(AnchorLayout):
         if self.file_path:
             self.ids.get_file.text = self.file_path
             try:
-                file = open(self.file_path, "r")
+                file = open(self.file_path, "r", newline="")  # keep \r produced by the XOR
                 self.plaintext = file.read()
                 file.close()
             except PermissionError:
