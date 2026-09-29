@@ -41,7 +41,7 @@ def write_file(dir_path, plaintext, caesar_key, otp_key, decryption=False):
         result = caesar_cipher(result, caesar_key, decryption)
     
     
-    output_file = open(dir_path + "/output.txt", "w")
+    output_file = open(dir_path + "/output.txt", "w", newline="")  # keep \r produced by the XOR
     
     output_file.write(result)
     
