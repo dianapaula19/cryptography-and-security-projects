@@ -1,5 +1,7 @@
 # Cryptography and security projects
 
+> **Original version:** this README and some fixes were added in 2026. To see the project exactly as it was first built, browse commit [`89db34a`](https://github.com/dianapaula19/cryptography-and-security-projects/tree/89db34ae58fab04036fd615b3cbaf962d46cde44) (2021-05-24).
+
 Two desktop apps for the *Cryptography and Security* course at the University of Bucharest
 (2021), both written in Python with a Kivy / KivyMD interface.
 
